@@ -11,6 +11,7 @@
   "permissions": [],
   "background": {
     "scripts": [
+      "js/chunk-vendors.js",
       "js/background.js"
     ]
   },
@@ -29,9 +30,8 @@
         "css/content.css"
       ],
       "js": [
-        "js/content.js",
         "js/chunk-vendors.js",
-        "js/inject.js"
+        "js/content.js"
       ],
       "run_at": "document_idle"
     }
