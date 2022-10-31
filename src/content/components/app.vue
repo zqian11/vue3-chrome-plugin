@@ -1,7 +1,8 @@
 <template>
   <div class="content_page">
-    <button @click="getDOM">操作DOM</button>
-    <button @click="getAnswer">校验</button>
+    <!--<button @click="getDOM">操作DOM</button>-->
+    <!--<button @click="getAnswer">校验</button>-->
+    <button @click="sendMsg">send</button>
   </div>
 </template>
 
@@ -16,6 +17,17 @@ onMounted(() => {
   // setInterval(() => {
   //   getAnswer()
   // }, 1000)
+// 接收来自popup的消息
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    console.log(request, 'request')
+    if (request.type === "PToC") {
+      let {className, multipleClassName} = request;
+      console.log(className, multipleClassName)
+      sendResponse("你好，我是contentscript，我收到了你的信息了~");
+    }
+
+  });
+
 })
 
 function getDOM() {
@@ -40,6 +52,12 @@ function getAnswer() {
   } else {
     console.log('查询到多个信息');
   }
+}
+
+function sendMsg() {
+  chrome.runtime.sendMessage("data", function () {
+    console.log("收到响应");
+  });
 }
 </script>
 
